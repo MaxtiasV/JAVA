@@ -1,0 +1,153 @@
+
+import java.util.Scanner;
+
+public class PatronesAnidados {
+public static void main(String[] args) {
+	Scanner sc = new Scanner(System.in);
+	System.out.println("Que tipo de mapa desea crear? : "
+						+ "\n1 Para Cuadrado"
+						+ "\n2 Para Zeta" 
+						+ "\n3 Para Equis"
+						+ "\n4 Para un cuadrado con sacados"
+						+ "\n5 Para un Asterisco encajonado"
+						+ "\n6 Para una Cuadricula"
+						+ "\n7 Para una Cuadricula intermitente");
+	System.out.printf("Ingrese el tipo del mapa : ");
+	int tipo;
+	tipo =sc.nextInt();
+		
+	System.out.printf("Ingrese el tamaño maximo del mapa : ");
+	int tamano;
+	tamano =sc.nextInt();
+	
+	sc.close();
+	
+	menu(tipo,tamano);
+}
+
+static void menu(int tipo, int tamano) {
+
+	if (tipo == 1) {
+		// patron 1 cuadrado
+		System.out.println("Patrón 1 : ");
+		for (int i = 1; i <= tamano; i++) {
+			for (int j = 1; j <= tamano; j++) {
+				if (i == 1 || j == 1 || i == tamano || j == tamano) {
+					System.out.printf("*");
+				} else {
+					System.out.printf(" ");
+				}
+			}
+			System.out.println("");
+		}
+	} else if (tipo == 2) { // patron 2 z
+		System.out.println("Patrón 2 : ");
+		for (int i = 1; i <= tamano; i++) {
+			for (int j = 1; j <= tamano; j++) {
+				if (i == 1 || i == tamano || (i + j) == tamano + 1) {
+					System.out.printf("*");
+				} else {
+					System.out.printf(" ");
+				}
+			}
+			System.out.println("");
+		}
+	} else if (tipo == 3) { // patron 3 x
+		System.out.println("Patrón 3 : ");
+		for (int i = 1; i <= tamano; i++) {
+			for (int j = 1; j <= tamano; j++) {
+				if (i == j || (i + j) == tamano + 1) {
+					System.out.printf("x");
+				} else {
+					System.out.printf(" ");
+				}
+			}
+			System.out.println();
+		}
+	} else if (tipo == 4) { // patron 4 con sacados
+		System.out.println("Patrón 4 : ");
+		for (int i = 1; i <= tamano; i++) {
+			for (int j = 1; j <= tamano; j++) {
+				if (i != 1 && j == 1) {
+					System.out.printf(" ");
+				} else if (i != tamano && j == tamano) {
+					System.out.printf(" ");
+				} else {
+					System.out.printf("*");
+				}
+			}
+			System.out.println();
+		}
+	} else if (tipo == 5) {
+		System.out.println("Patrón 5 : ");
+		float medio = 0.5f;
+		for (int i = 1; i <= tamano; i++) {
+			for (int j = 1; j <= tamano; j++) {
+				if (i == 1 || j == 1 || i == j || (i + j) == tamano + 1 || i == (tamano / 2) + medio
+						|| j - medio == (tamano / 2) || 2 * i == tamano || 2 * j == tamano || i == (tamano / 2) + 1
+						|| j == (tamano / 2) + 1 || i == tamano || j == tamano) {
+					System.out.printf("#");
+				} else {
+					System.out.printf(" ");
+				}
+			}
+			System.out.println();
+		}
+
+	} else if (tipo == 6) {
+		System.out.println("Patrón 6 : ");
+
+		for (int i = 1; i <= tamano; i++) {
+			for (int j = 1; j <= tamano; j++) {
+				if (i == 1 || j == 1 || i == tamano || j == tamano || i % 2 == 1 || j % 2 == 1) {
+					System.out.printf("o");
+
+				} else {
+					System.out.printf(" ");
+
+				}
+			}
+			System.out.println();
+		}
+
+	} else if (tipo == 7) {
+		System.out.println("Patrón 7 : ");
+
+		for (int i = 1; i <= tamano; i++) {
+			for (int j = 1; j <= tamano; j++) {
+				if (i == 1 || j == 1 || i == tamano || j == tamano || (i + j) % 2 == 1) {
+					System.out.printf("o ");
+
+				} else {
+					System.out.printf("  ");
+				}
+			}
+			System.out.println();
+		}
+	} else if (tipo == 8) {
+		System.out.println("Patrón 8 : ");
+		for (int i = 1; i <= tamano; i++) {
+			for (int c = 1; c <= tamano - i; c++)
+				System.out.printf(" ");
+
+			for (int c = 1; c <= 2 * i - 1; c++)
+				System.out.printf("*");
+
+			System.out.printf("\n");
+		}
+
+		for (int i = 1; i <= tamano - 1; i++) {
+			for (int c = 1; c <= i; c++)
+				System.out.printf(" ");
+
+			for (int c = 1; c <= 2 * (tamano - i) - 1; c++)
+				System.out.printf("*");
+
+			System.out.printf("\n");
+		}
+	} else {
+		System.out.println("El tipo ingresado no es válido");
+	}
+
+}
+}
