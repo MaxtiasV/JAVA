@@ -1,0 +1,97 @@
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Scanner;
+
+public class EscriturayLectura {
+	public static void main(String[] args) throws IOException {
+
+		crearArchivo(args[0], args[1]);
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Ingrese un nombre de Fichero a buscar : ");
+		String nombrefichero = sc.next();
+		System.out.println("Ingrese un Texto a buscar dentro del archivo : ");
+		String texto = sc.next();
+
+		buscarTexto(nombrefichero, texto, args[0]);
+		sc.close();
+	}
+
+	private static void crearArchivo(String directorio, String fichero) throws IOException {
+		String laRutaDelArchivo = "src/" + directorio;
+		File miRuta = new File(laRutaDelArchivo);
+
+		String elNombreDelArchivo = miRuta + "/" + fichero + ".txt";
+		File archivoDeLectura = new File(elNombreDelArchivo);
+
+		if (!miRuta.exists()) {
+			if (miRuta.mkdirs()) {
+				System.out.println("Directorio creado");
+			} else {
+				System.out.println("Error al crear directorio");
+			}
+		} else {
+			System.out.println("Directorio ya esta creado");
+		}
+
+		if (!archivoDeLectura.exists()) {
+			if (archivoDeLectura.createNewFile()) {
+				FileWriter fileW = new FileWriter(archivoDeLectura);
+				BufferedWriter bufferedWriter = new BufferedWriter(fileW);
+				ArrayList<String> lista = new ArrayList<String>();
+				// Listado de cosas a guardar en el arrayList
+				lista.add("Perro");
+				lista.add("Gato");
+				lista.add("Juan");
+				lista.add("Daniel");
+				lista.add("Juan");
+				lista.add("Gato");
+				lista.add("Perro");
+				lista.add("Camila");
+				lista.add("Daniel");
+				lista.add("Camila");
+
+				String[] nuevo = lista.toArray(new String[0]);
+
+				for (String arg : nuevo) {
+					bufferedWriter.write(arg);
+					bufferedWriter.newLine();
+				}
+				bufferedWriter.close();
+				System.out.println("Archivo creado");
+			} else {
+				System.out.println("Error al crear archivo");
+			}
+		} else {
+			System.out.println("Archivo ya esta creado");
+		}
+	}
+
+	private static void buscarTexto(String nombreFichero, String texto, String laRutaDelArchivo) throws IOException {
+
+		File archivo = new File("src/" + laRutaDelArchivo + "/" + nombreFichero + ".txt");
+
+		if (archivo.exists()) {
+			int contador = 0;
+			FileReader fr = new FileReader(archivo);
+			BufferedReader br = new BufferedReader(fr);
+			String data = br.readLine();
+			while (data != null) {
+				if (data.equals(texto)) {
+					contador++;
+				}
+				data = br.readLine();
+			}
+			br.close();
+			System.out.println("Cantidad de repeticiones del texto -> " + contador);
+		}else
+			System.out.println("El fichero ingresado no existe");
+	}
+}
